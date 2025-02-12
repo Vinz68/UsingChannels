@@ -13,15 +13,10 @@ public class Processor : BackgroundService
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-
-        //while (!stoppingToken.IsCancellationRequested)
-        //{
-        //    await Task.Delay(1000, stoppingToken);
-        //    Console.WriteLine(DateTime.UtcNow);
-        //}
-
+        // Process incoming messages from the Channel
         while (await _channel.Reader.WaitToReadAsync(stoppingToken))
         {
+            // get the message (of type ChannelRequest)
             var request = await _channel.Reader.ReadAsync(stoppingToken);
 
             // simulated processing time
@@ -34,6 +29,7 @@ public class Processor : BackgroundService
             }
             else
             {
+                // TODO: My code never reaches this / investigate how we can use the Count.
                 var cnt = _channel.Reader.Count;
                 Console.WriteLine($"{request.Message}. Number of msg left in queue is: {cnt - 1}");
             }
