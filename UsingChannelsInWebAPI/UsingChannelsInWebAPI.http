@@ -1,0 +1,6 @@
+@UsingChannelsInWebAPI_HostAddress = http://localhost:5276
+
+GET {{UsingChannelsInWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
